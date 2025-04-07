@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generations: Industrial Revolution</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="stats-container">
+            <div class="stat">
+                <span class="stat-label">Wealth</span>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="wealth-fill"></div>
+                    <div class="threshold-marker next" id="wealth-next-thresh"></div>
+                    <div class="threshold-marker prev" id="wealth-prev-thresh"></div>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Reputation</span>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="reputation-fill"></div>
+                    <div class="threshold-marker next" id="reputation-next-thresh"></div>
+                    <div class="threshold-marker prev" id="reputation-prev-thresh"></div>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Health</span>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="health-fill"></div>
+                    <div class="threshold-marker next" id="health-next-thresh"></div>
+                    <div class="threshold-marker prev" id="health-prev-thresh"></div>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Stability</span>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="stability-fill"></div>
+                    <div class="threshold-marker next" id="stability-next-thresh"></div>
+                    <div class="threshold-marker prev" id="stability-prev-thresh"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add an element to display the current class -->
+        <div class="current-class-display" id="class-display">Class: Laborer</div>
+
+        <div class="card-area">
+            <div id="swipe-feedback-left" class="swipe-feedback"></div>
+            <div id="swipe-feedback-right" class="swipe-feedback"></div>
+
+            <div id="card" class="card">
+                <img id="card-image" src="" alt="Character">
+                <p id="card-text"></p>
+            </div>
+             <div id="choice-text-left" class="choice-text choice-text-left"></div>
+             <div id="choice-text-right" class="choice-text choice-text-right"></div>
+        </div>
+
+        <div id="end-screen" class="end-screen" style="display: none;">
+            <img id="end-image" src="" alt="Final Scene" style="display: none; max-width: 60%; max-height: 40%; margin-bottom: 20px; object-fit: contain;">
+            <h2 id="end-title"></h2>
+            <p id="end-message"></p>
+            <button id="restart-button">Live Again</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+industrial-revolution-reigns/
+├── index.html
+├── style.css
+├── script.js
+└── images/
+    ├── factory_owner.png
+    ├── factory_foreman.png
+    ├── weary_worker.png
+    ├── union_organizer.png
+    ├── slum_landlord.png
+    ├── inventor_artisan.png
+    ├── child_worker.png
+    └── noble_advisor.png
+    └── spirit_guide.png
+    └── noble_steward.png
+    └── royal_advisor.png
+    └── royal_guard.png
