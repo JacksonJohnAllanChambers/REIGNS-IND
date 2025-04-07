@@ -1,5 +1,7 @@
 body {
-    font-family: sans-serif;
+    /* Apply thematic font optionally to whole body or specific elements */
+    /* font-family: 'Merriweather', serif; */
+    font-family: sans-serif; /* Keep sans-serif for UI elements */
     background-color: #333;
     color: #f0f0f0;
     display: flex;
@@ -24,6 +26,7 @@ body {
     box-sizing: border-box;
 }
 
+/* --- Stats Section --- */
 .stats-container {
     display: flex;
     justify-content: space-around;
@@ -32,152 +35,189 @@ body {
 
 .stat {
     text-align: center;
-    width: 23%; /* Adjust as needed */
+    width: 23%;
 }
 
 .stat-label {
     font-size: 0.8em;
     display: block;
     margin-bottom: 5px;
+    color: #ccc; /* Lighter label */
 }
 
-/* Existing styles ... */
-
 .stat-bar {
-    height: 12px; /* Slightly taller? */
+    height: 12px;
     background-color: #666;
     border-radius: 6px;
     overflow: hidden;
-    position: relative; /* Crucial for positioning markers */
+    position: relative;
 }
 
 .stat-fill {
     height: 100%;
     background-color: #ddd;
-    border-radius: 6px; /* Match parent */
-    width: 50%;
-    transition: width 0.4s ease, background-color 0.3s ease; /* Smooth fill changes */
+    border-radius: 6px;
+    width: 50%; /* Initial value */
+    transition: width 0.4s ease, background-color 0.3s ease;
 }
 
 .stat-fill.low { background-color: #ff6b6b; }
 .stat-fill.high { background-color: #feca57; }
 
-/* NEW: Threshold Marker Styling */
 .threshold-marker {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 2px; /* Width of the marker line */
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
-    display: none; /* Hide by default */
-    transition: left 0.4s ease; /* Smooth position changes */
-    pointer-events: none; /* Don't interfere with clicks/drags */
-    z-index: 1; /* Above stat-fill */
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: none;
+    transition: left 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .threshold-marker.next {
-    background-color: rgba(152, 251, 152, 0.7); /* Light green for next goal */
+    background-color: rgba(152, 251, 152, 0.7);
     box-shadow: 0 0 3px rgba(152, 251, 152, 0.5);
 }
 
 .threshold-marker.prev {
-    background-color: rgba(255, 160, 122, 0.7); /* Light salmon for fall-back line */
-     box-shadow: 0 0 3px rgba(255, 160, 122, 0.5);
+    background-color: rgba(255, 160, 122, 0.7);
+    box-shadow: 0 0 3px rgba(255, 160, 122, 0.5);
 }
 
-/* NEW: Current Class Display Styling */
+/* --- Current Class Display --- */
 .current-class-display {
     text-align: center;
-    margin-top: 10px; /* Space below card area */
-    margin-bottom: -10px; /* Adjust layout spacing */
+    margin-top: 10px;
+    margin-bottom: 5px; /* Adjusted margin */
     font-size: 0.9em;
     color: #ccc;
 }
 
-.end-screen {
-    /* Add z-index if it was missing */
-    z-index: 10;
-    /* Other styles as before */
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background-color: rgba(0, 0, 0, 0.85);
-     color: #fff;
-     display: none; /* Initially hidden */
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     text-align: center;
-     padding: 20px;
-     box-sizing: border-box;
-}
-
-/* Rest of your CSS ... */
+/* --- Card Area and Card Styling --- */
 .card-area {
     flex-grow: 1;
-    position: relative; /* Needed for positioning feedback */
-    display: flex; /* Center card */
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
+    /*overflow: hidden;  Hide card parts flying off */
+    margin-top: 10px; /* Add some space above card */
 }
 
 .card {
-    width: 85%;
-    height: 85%;
-    background-color: #000000;
-    color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Center content vertically */
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
+    width: 90%; /* Slightly wider? */
+    max-width: 380px; /* Optional max width */
+    height: auto; /* Height determined by aspect ratio */
+    aspect-ratio: 2 / 3; /* Enforce 2:3 aspect ratio */
+
+    background-color: #222; /* Fallback color */
+    border-radius: 12px; /* Smoother radius */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+
+    position: absolute; /* Keep for movement */
     cursor: grab;
-    user-select: none; /* Prevent text selection during drag */
-    position: absolute; /* Allows movement */
-    transition: transform 0.1s linear, opacity 0.3s; /* Smooth out quick moves, add opacity transition */
+    user-select: none;
+    overflow: hidden; /* Clip contents (image) */
+
+    /* Remove default padding */
+    padding: 0;
+
+    /* Set position context for absolute children */
+    position: relative;
+
+    /* Keep transitions */
+    transition: transform 0.1s linear, opacity 0.3s ease-out;
 }
 .card.dragging {
      cursor: grabbing;
 }
 
 #card-image {
-    max-width: 60%; /* Adjust as needed */
-    max-height: 50%; /* Adjust as needed */
-    margin-bottom: 15px;
-    object-fit: contain;
-    pointer-events: none; /* Prevent image interfering with drag */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover area, maintain aspect ratio, crop */
+    border-radius: 12px; /* Match parent card */
+    z-index: 1; /* Base layer */
+    pointer-events: none;
+}
+
+/* Container for text overlay */
+#card-text-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2; /* Above image */
+    /* Gradient from black (more opaque) to transparent */
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0) 100%);
+    padding: 40px 20px 20px 20px; /* Adjust padding: Top, H, Bottom */
+    border-radius: 0 0 12px 12px; /* Match bottom radius */
+    pointer-events: none;
 }
 
 #card-text {
-    font-size: 1em;
-    line-height: 1.4;
-    pointer-events: none; /* Prevent text interfering with drag */
+    /* Apply the thematic font */
+    font-family: 'Merriweather', serif;
+    font-size: 1.05em; /* Slightly larger */
+    line-height: 1.5;
+    color: #f5f5f5; /* Very light grey/off-white */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* Stronger shadow */
+    margin: 0; /* Remove default paragraph margin */
+    text-align: center; /* Center text within container */
 }
 
 
-/* Subtle text hints that appear during drag */
+/* Choice text hints (overlaying card) */
 .choice-text {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5em;
+    /* Position vertically near center/upper third */
+    top: 45%;
+    transform: translateY(-50%) rotate(0); /* Start rotation at 0 */
+    width: auto; /* Fit content */
+    max-width: 80%; /* Prevent overly wide text */
+    font-size: 2.6em; /* Large hints */
     font-weight: bold;
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    transition: opacity 0.2s;
-    pointer-events: none; /* Don't interfere with card */
+    font-family: 'Merriweather', serif; /* Thematic font */
+    color: rgba(255, 255, 255, 0.85); /* Bright text */
+    /* Robust text shadow for outline effect */
+    text-shadow:
+        -1.5px -1.5px 0 #000,
+         1.5px -1.5px 0 #000,
+        -1.5px  1.5px 0 #000,
+         1.5px  1.5px 0 #000, /* Outline */
+         3px 3px 5px rgba(0,0,0,0.6); /* Drop shadow */
+
+    opacity: 0; /* Controlled by JS */
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; /* Add transform transition */
+    pointer-events: none;
+    z-index: 3; /* Above text container */
+    padding: 5px 15px; /* Padding around text */
+    text-align: center; /* Center align text within its box */
+    /* Optional: subtle rotation on reveal */
+    /* transform: translateY(-50%) rotate(-5deg); for left */
+    /* transform: translateY(-50%) rotate(5deg); for right */
 }
-.choice-text-left { left: 10px; }
-.choice-text-right { right: 10px; }
+
+/* Horizontal positioning inside the card */
+.choice-text-left {
+    left: 50%; /* Start near center */
+    transform: translateX(-50%) translateY(-50%) rotate(-8deg); /* Centered H, moved V, rotated */
+    transform-origin: center center;
+}
+.choice-text-right {
+    right: 50%; /* Start near center */
+    transform: translateX(50%) translateY(-50%) rotate(8deg); /* Centered H, moved V, rotated */
+    transform-origin: center center;
+}
 
 
-/* Swipe Feedback Overlays */
+/* Swipe Feedback Overlays (outside card) */
 .swipe-feedback {
     position: absolute;
     top: 50%;
@@ -187,20 +227,21 @@ body {
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.2s ease-out;
-    pointer-events: none; /* Don't block card */
+    pointer-events: none;
+    z-index: 4; /* Above card if needed during overlap */
 }
 
 #swipe-feedback-left {
-    left: -10px; /* Position just outside card area */
-    background-color: rgba(255, 100, 100, 0.3); /* Example red tint */
+    left: -15px; /* Adjusted position */
+    background-color: rgba(255, 100, 100, 0.3);
 }
 #swipe-feedback-right {
-    right: -10px; /* Position just outside card area */
-    background-color: rgba(100, 200, 100, 0.3); /* Example green tint */
+    right: -15px; /* Adjusted position */
+    background-color: rgba(100, 200, 100, 0.3);
 }
 
 
-/* End Screen Styling */
+/* --- End Screen Styling --- */
 .end-screen {
     position: absolute;
     top: 0;
@@ -209,28 +250,45 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85);
     color: #fff;
-    display: flex;
+    /* display: flex; /* JS controls this */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    z-index: 10; /* Ensure it's above everything */
+    z-index: 10;
+}
+#end-image { /* Style for image inside end screen */
+    display: none; /* JS controls this */
+    max-width: 60%;
+    max-height: 40%;
+    margin-bottom: 20px;
+    object-fit: contain;
+    border-radius: 5px; /* Optional rounding */
 }
 #end-title {
+    font-family: 'Merriweather', serif; /* Thematic font for title */
     margin-bottom: 15px;
+    font-size: 1.8em;
 }
 #end-message {
+    font-family: 'Merriweather', serif; /* Thematic font for message */
     margin-bottom: 30px;
     max-width: 80%;
+    line-height: 1.6;
+    font-size: 1.1em;
 }
 #restart-button {
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 12px 25px; /* Larger button */
+    font-size: 1.1em;
     cursor: pointer;
     background-color: #eee;
     color: #333;
     border: none;
     border-radius: 5px;
+    transition: background-color 0.2s;
+}
+#restart-button:hover {
+    background-color: #ccc;
 }

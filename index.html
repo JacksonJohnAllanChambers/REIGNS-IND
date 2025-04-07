@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generations: Industrial Revolution</title>
+    <!-- Added Google Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Your Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
         <div class="stats-container">
+            <!-- ... stats ... -->
             <div class="stat">
                 <span class="stat-label">Wealth</span>
                 <div class="stat-bar">
@@ -42,20 +48,28 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Add an element to display the current class -->
+
         <div class="current-class-display" id="class-display">Class: Laborer</div>
 
         <div class="card-area">
+            <!-- Swipe feedback remains outside -->
             <div id="swipe-feedback-left" class="swipe-feedback"></div>
             <div id="swipe-feedback-right" class="swipe-feedback"></div>
 
+            <!-- Card Element -->
             <div id="card" class="card">
-                <img id="card-image" src="" alt="Character">
-                <p id="card-text"></p>
+                <!-- Image is the base layer -->
+                <img id="card-image" src="images/default.png" alt="Card Image">
+
+                <!-- Text Container overlays the image -->
+                <div id="card-text-container">
+                   <p id="card-text"></p>
+                </div>
+
+                <!-- Choice text ALSO overlays the image, MOVED INSIDE #card -->
+                <div id="choice-text-left" class="choice-text choice-text-left"></div>
+                <div id="choice-text-right" class="choice-text choice-text-right"></div>
             </div>
-             <div id="choice-text-left" class="choice-text choice-text-left"></div>
-             <div id="choice-text-right" class="choice-text choice-text-right"></div>
         </div>
 
         <div id="end-screen" class="end-screen" style="display: none;">
